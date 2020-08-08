@@ -11,6 +11,16 @@ Download the [last release](https://mega.nz/file/rQBkRQRA#G3zOhPyztzvcS3-wmlwrMu
 - For the first time launching BKTrans, find "Add OCR data" on the right panel. Click **rightwards arrow**(→) and choose your language that you want BKTrans to scan.
 *Note: 'Auto' is latin unsigned.
 
-- For more information, please contact with me at [FB/snowphantom](https://wwww.facebook.com/snowphantom) or propose changes to this project for better. 
+- For more information, please contact with me at [FB/snowphantom](https://wwww.facebook.com/snowphantom). 
+
+### Author ###
+
+- [SnowPhantom](https://github.com/snowphantom)
+
+### Want to contribute? ###
+
+This project is't already perfect. 
+If finding some ugly bugs, just reporting them.
+
 
 ### Happy enjoy 🎉🎉🎉
