@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BKTrans", "BKTrans\BKTrans.csproj", "{89BE977F-9975-479F-875B-85C9F60D9352}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+		Description = Translate app with OCR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{89BE977F-9975-479F-875B-85C9F60D9352}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89BE977F-9975-479F-875B-85C9F60D9352}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89BE977F-9975-479F-875B-85C9F60D9352}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{89BE977F-9975-479F-875B-85C9F60D9352}.Debug|x64.Build.0 = Debug|Any CPU
+		{89BE977F-9975-479F-875B-85C9F60D9352}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{89BE977F-9975-479F-875B-85C9F60D9352}.Debug|x86.Build.0 = Debug|Any CPU
+		{89BE977F-9975-479F-875B-85C9F60D9352}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89BE977F-9975-479F-875B-85C9F60D9352}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89BE977F-9975-479F-875B-85C9F60D9352}.Release|x64.ActiveCfg = Release|Any CPU
+		{89BE977F-9975-479F-875B-85C9F60D9352}.Release|x64.Build.0 = Release|Any CPU
+		{89BE977F-9975-479F-875B-85C9F60D9352}.Release|x86.ActiveCfg = Release|Any CPU
+		{89BE977F-9975-479F-875B-85C9F60D9352}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {95523A0E-2239-42EE-8036-C6C3E22DDE66}
+	EndGlobalSection
+EndGlobal

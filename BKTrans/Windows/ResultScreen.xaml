@@ -1,0 +1,217 @@
+﻿<Controls:MetroWindow
+    x:Class="BKTrans.ResultScreen"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:Material="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ie="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:local="clr-namespace:BKTrans"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="metroWindow"
+    Title="BKTrans"
+    Width="420"
+    Height="400"
+    Background="WhiteSmoke"
+    BorderBrush="Gray"
+    ShowCloseButton="False"
+    ShowMaxRestoreButton="False"
+    ShowMinButton="False"
+    ShowTitleBar="False"
+    Topmost="True"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <Style x:Key="TranslateTextBox" TargetType="{x:Type TextBox}">
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="AcceptsReturn" Value="True" />
+            <Setter Property="Margin" Value="0,45,0,0" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="ScrollViewer.CanContentScroll" Value="True" />
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+            <Setter Property="Background" Value="WhiteSmoke" />
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+        <Style x:Key="TranslateRichTextBox" TargetType="{x:Type RichTextBox}">
+            <Setter Property="AcceptsReturn" Value="True" />
+            <Setter Property="Margin" Value="0,45,0,0" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="ScrollViewer.CanContentScroll" Value="True" />
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+            <Setter Property="Background" Value="WhiteSmoke" />
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+        <Style
+            x:Key="VoiceButton"
+            BasedOn="{StaticResource MetroFlatButton}"
+            TargetType="{x:Type Button}">
+            <Setter Property="Margin" Value="0,8,8,0" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+        </Style>
+        <Style x:Key="TranslateRichTextPOS" TargetType="{x:Type Run}">
+            <Setter Property="FontStyle" Value="Italic" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontSize" Value="13" />
+        </Style>
+        <Style x:Key="TranslateRichTextTerm" TargetType="{x:Type Run}">
+            <Setter Property="FontSize" Value="13" />
+        </Style>
+    </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Key="Esc" Command="{Binding CloseWindowCommand}" />
+    </Window.InputBindings>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid x:Name="TitleBar">
+            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                <ToggleButton
+                    x:Name="checkBox"
+                    Margin="10,8,0,0"
+                    IsChecked="{Binding Topmost, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ResultScreen}}}"
+                    Style="{StaticResource MetroFlatToggleButton}"
+                    ToolTip="Pin translate pop-up on screen">
+                    <Material:PackIconMaterialLight Kind="Pin" />
+                </ToggleButton>
+            </StackPanel>
+            <StackPanel
+                Margin="0,8,0,0"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
+                <Image
+                    Width="20"
+                    Height="20"
+                    Margin="0,-2,5,0"
+                    RenderOptions.BitmapScalingMode="Fant"
+                    Source="pack://application:,,,/favico.ico" />
+                <TextBlock FontSize="16" Text="{StaticResource ApplicationTitle}" />
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button Command="{Binding CloseWindowCommand}" Style="{StaticResource ButtonToolBarStyle}">
+                    <Material:PackIconMaterialLight Kind="Plus" Style="{StaticResource IconToolBarStyle}">
+                        <Material:PackIconMaterialLight.LayoutTransform>
+                            <RotateTransform Angle="45" CenterX="0.5" CenterY="0.5" />
+                        </Material:PackIconMaterialLight.LayoutTransform>
+                    </Material:PackIconMaterialLight>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid Grid.Column="2">
+                <Grid Margin="10,0,10,10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <StackPanel Orientation="Horizontal">
+                            <Button
+                                Command="{Binding PlayOriginText}"
+                                IsEnabled="{Binding IsErrorOccurred, Converter={StaticResource inverseBool2VisibilityConverter}}"
+                                Style="{StaticResource VoiceButton}"
+                                ToolTip="Listen to origin text">
+                                <Material:PackIconMaterialLight Kind="Volume" />
+                            </Button>
+                            <TextBlock
+                                Margin="0,7,0,0"
+                                VerticalAlignment="Top"
+                                FontSize="18"
+                                FontStyle="Italic"
+                                Text="{Binding ORCLang}" />
+                        </StackPanel>
+                        <Button
+                            HorizontalAlignment="Right"
+                            Command="{Binding RescanTextCommand}"
+                            Content="Scan text"
+                            Style="{StaticResource VoiceButton}" />
+                        <!--<RichTextBox
+                            GotFocus="OriginTextBox_GotFocus"
+                            IsEnabled="{Binding IsErrorOccurred, Converter={StaticResource inverseBoolConverter}}"
+                            LostFocus="OriginTextBox_LostFocus"
+                            Style="{StaticResource TranslateRichTextBox}">
+                            <ie:Interaction.Triggers>
+                                <ie:EventTrigger EventName="TextChanged">
+                                    <ie:InvokeCommandAction Command="{Binding Translate}" />
+                                </ie:EventTrigger>
+                            </ie:Interaction.Triggers>
+                            <FlowDocument>
+                                <Paragraph>
+                                    <Run x:Name="OriginTextRun" Text="{Binding OriginText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                                </Paragraph>
+                            </FlowDocument>
+                        </RichTextBox>-->
+                        <TextBox
+                            x:Name="OriginTextBox"
+                            GotFocus="OriginTextBox_GotFocus"
+                            LostFocus="OriginTextBox_LostFocus"
+                            Style="{StaticResource TranslateTextBox}"
+                            Text="{Binding OriginText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                            <ie:Interaction.Triggers>
+                                <ie:EventTrigger EventName="TextChanged">
+                                    <ie:InvokeCommandAction Command="{Binding Translate}" />
+                                </ie:EventTrigger>
+                            </ie:Interaction.Triggers>
+                        </TextBox>
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="14"
+                            Foreground="Red"
+                            Text="{Binding ErrorMessage}"
+                            TextAlignment="Center"
+                            TextWrapping="Wrap"
+                            Visibility="{Binding IsErrorOccurred, Converter={StaticResource bool2VisibilityConverter}}" />
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <StackPanel Orientation="Horizontal">
+                            <Button
+                                Command="{Binding PlayTranslatedText}"
+                                IsEnabled="{Binding IsErrorOccurred, Converter={StaticResource inverseBool2VisibilityConverter}}"
+                                Style="{StaticResource VoiceButton}"
+                                ToolTip="Listen to translated text">
+                                <Material:PackIconMaterialLight Kind="Volume" />
+                            </Button>
+                            <TextBlock
+                                Margin="0,7,0,0"
+                                VerticalAlignment="Top"
+                                FontSize="18"
+                                FontStyle="Italic"
+                                Text="{Binding TargetLang}" />
+                        </StackPanel>
+                        <RichTextBox
+                            GotFocus="TranslatedTextBox_GotFocus"
+                            IsEnabled="{Binding IsErrorOccurred, Converter={StaticResource inverseBoolConverter}}"
+                            LostFocus="TranslatedTextBox_LostFocus"
+                            Style="{StaticResource TranslateRichTextBox}">
+                            <FlowDocument>
+                                <Paragraph Margin="0">
+                                    <Run FontSize="18" Text="{Binding TranslatedText}" />
+                                </Paragraph>
+                                <Paragraph Margin="0">
+                                    <Run Style="{StaticResource TranslateRichTextPOS}" Text="{Binding POS[0]}" />
+                                    <Run Style="{StaticResource TranslateRichTextTerm}" Text="{Binding POS_TERMS[0]}" />
+                                </Paragraph>
+                                <Paragraph Margin="0,5,0,0">
+                                    <Run Style="{StaticResource TranslateRichTextPOS}" Text="{Binding POS[1]}" />
+                                    <Run Style="{StaticResource TranslateRichTextTerm}" Text="{Binding POS_TERMS[1]}" />
+                                </Paragraph>
+                                <Paragraph Margin="0,5,0,0">
+                                    <Run Style="{StaticResource TranslateRichTextPOS}" Text="{Binding POS[2]}" />
+                                    <Run Style="{StaticResource TranslateRichTextTerm}" Text="{Binding POS_TERMS[2]}" />
+                                </Paragraph>
+                            </FlowDocument>
+                        </RichTextBox>
+                        <Button
+                            HorizontalAlignment="Right"
+                            Command="{Binding TranslateCommand}"
+                            Content="Translate"
+                            Style="{StaticResource VoiceButton}" />
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Controls:MetroWindow>

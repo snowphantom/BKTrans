@@ -1,0 +1,98 @@
+﻿<UserControl
+    x:Class="BKTrans.AddLanguageControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:Material="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:BKTrans"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="300"
+    d:DesignWidth="500"
+    mc:Ignorable="d">
+    <Grid Background="White">
+        <Grid Height="25" VerticalAlignment="Top">
+            <Controls:ProgressRing
+                Width="12"
+                Height="12"
+                Margin="0,0,15,0"
+                HorizontalAlignment="Right"
+                Foreground="Black"
+                IsActive="{Binding IsAddingLocalOCRData}"
+                IsLarge="True" />
+            <Button
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Background="White"
+                Command="{Binding BackToGeneral}"
+                Style="{StaticResource MetroFlatButton}">
+                <Material:PackIconMaterialLight Kind="ArrowLeft" />
+            </Button>
+            <Button
+                Margin="0,0,15,0"
+                Padding="0"
+                HorizontalAlignment="Right"
+                Background="White"
+                Command="{Binding AddLocalOCRDataClick}"
+                Style="{StaticResource MetroFlatButton}"
+                ToolTip="Import language data"
+                Visibility="{Binding IsAddingLocalOCRData, Converter={StaticResource inverseBool2VisibilityConverter}}">
+                <Material:PackIconMaterialLight
+                    Width="24"
+                    Height="24"
+                    Kind="CloudDownload" />
+            </Button>
+
+        </Grid>
+        <DataGrid
+            Margin="0,25,0,0"
+            AutoGenerateColumns="False"
+            CanUserAddRows="False"
+            CanUserResizeRows="False"
+            ItemsSource="{Binding ItemsList}"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+            Style="{StaticResource MetroDataGrid}">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Width="125" Header="Language">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name, Converter={StaticResource shortNameConverter}}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Download">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Material:PackIconMaterialLight
+                                    Width="16"
+                                    Height="16"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Foreground="Black"
+                                    Kind="Check"
+                                    Visibility="{Binding IsExist, Converter={StaticResource bool2VisibilityConverter}}" />
+                                <Controls:ProgressRing
+                                    Width="16"
+                                    Height="16"
+                                    Foreground="Black"
+                                    Visibility="{Binding IsDownloading, Converter={StaticResource bool2VisibilityConverter}}" />
+                                <Button
+                                    Width="40"
+                                    Command="{Binding Path=DataContext.DownloadClick, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}}"
+                                    CommandParameter="{Binding Code}"
+                                    Style="{StaticResource MetroFlatButton}"
+                                    Visibility="{Binding IsHideDownload, Converter={StaticResource inverseBool2VisibilityConverter}}">
+                                    <Material:PackIconMaterialLight
+                                        Width="16"
+                                        Height="16"
+                                        Kind="Download" />
+                                </Button>
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>
