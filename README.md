@@ -13,4 +13,4 @@ Download the [last release](https://mega.nz/file/rQBkRQRA#G3zOhPyztzvcS3-wmlwrMu
 
 - For more information, please contact with me at [FB/snowphantom](https://wwww.facebook.com/snowphantom) or propose changes to this project for better. 
 
-### Happy enjoy
+### Happy enjoy 🎉🎉🎉
