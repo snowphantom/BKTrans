@@ -323,6 +323,7 @@ namespace BKTrans
             Settings.SaveSettings("General", "StartupWindow", IsStartupWindow.ToString());
             SaveHotKey();
             RegisterHotKeys();
+            ShowTrayIcon();
             this.Hide();
         }
 
