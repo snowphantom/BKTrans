@@ -20,7 +20,7 @@ Download the [last release](https://mega.nz/file/rQBkRQRA#G3zOhPyztzvcS3-wmlwrMu
 ### Want to contribute? ###
 
 This project is't already perfect. 
-If finding some ugly bugs, just reporting them.
+If finding some ugly bugs, just reporting them. You are welcome <3
 
 
 ### Happy enjoy 🎉🎉🎉
