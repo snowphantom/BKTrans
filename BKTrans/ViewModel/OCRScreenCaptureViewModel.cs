@@ -20,7 +20,5 @@ namespace BKTrans.ViewModel
         public string LanguageOCR = LanguageDictionary.MappingLanguageOCR.Keys.LastOrDefault();
         public BitmapImage ScreenCaptureFull { get { return UtilityHelper.GetScreenCapture(); } set { } }
         public List<string> LanguageOCRList { get { return LanguageDictionary.MappingLanguageOCR.Keys.ToList(); } }
-
-
     }
 }

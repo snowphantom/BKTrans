@@ -48,6 +48,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -103,6 +104,8 @@
     <Compile Include="Entities\RegionCapture.cs" />
     <Compile Include="Entities\TranslateResult.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="SingleInstance.cs" />
+    <Compile Include="User32API.cs" />
     <Compile Include="UserControl\AddLanguageControl.xaml.cs">
       <DependentUpon>AddLanguageControl.xaml</DependentUpon>
     </Compile>

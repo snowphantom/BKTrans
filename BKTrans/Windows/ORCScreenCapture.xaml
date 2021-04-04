@@ -21,7 +21,10 @@
             MouseLeftButtonDown="ScreenCaptureGrid_MouseLeftButtonDown"
             MouseMove="ScreenCaptureGrid_MouseMove"
             MouseUp="ScreenCaptureGrid_MouseUp">
-            <Image x:Name="CaptureBackground" Source="{Binding ScreenCaptureFull}" />
+            <Image
+                x:Name="CaptureBackground"
+                Source="{Binding ScreenCaptureFull}"
+                Stretch="Uniform" />
             <Canvas x:Name="myCanvas">
                 <Canvas.Background>
                     <SolidColorBrush>

@@ -212,7 +212,7 @@
                                         <StackPanel Margin="20,30,10,0" Orientation="Horizontal">
                                             <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
                                                 <TextBlock FontSize="20" Text="{StaticResource ApplicationTitle}" />
-                                                <TextBlock Text="1.0.1" />
+                                                <TextBlock Text="1.0.2" />
                                             </StackPanel>
                                             <Image
                                                 Width="40"
@@ -254,7 +254,7 @@
                                                 Margin="5,0,0,0"
                                                 FontSize="20"
                                                 Style="{StaticResource InfoTextBlockStyle}"
-                                                Text="Developer"
+                                                Text="Contact"
                                                 TextWrapping="WrapWithOverflow" />
                                             <StackPanel
                                                 Margin="0,20,0,0"
@@ -267,8 +267,15 @@
                                                 Margin="0,10,0,0"
                                                 VerticalAlignment="Top"
                                                 Orientation="Horizontal">
-                                                <Material:PackIconMaterialLight Kind="Email" Style="{StaticResource InfoIconStyle}" />
-                                                <TextBlock Style="{StaticResource InfoTextBlockStyle}" Text="jokernqh@gmail.com" />
+                                                <Material:PackIconMaterialLight Kind="Link" Style="{StaticResource InfoIconStyle}" />
+                                                <TextBlock Style="{StaticResource InfoTextBlockStyle}">
+                                                    <Hyperlink NavigateUri="http://snowphantom.com" RequestNavigate="Hyperlink_RequestNavigate">
+                                                        <TextBlock
+                                                            FontSize="16"
+                                                            Foreground="#FF303030"
+                                                            Text="SnowPhantom.com" />
+                                                    </Hyperlink>
+                                                </TextBlock>
                                             </StackPanel>
                                             <StackPanel
                                                 Margin="0,10,0,0"
@@ -280,21 +287,7 @@
                                                         <TextBlock
                                                             FontSize="16"
                                                             Foreground="#FF303030"
-                                                            Text="Fb:100039424140022" />
-                                                    </Hyperlink>
-                                                </TextBlock>
-                                            </StackPanel>
-                                            <StackPanel
-                                                Margin="0,10,0,0"
-                                                VerticalAlignment="Top"
-                                                Orientation="Horizontal">
-                                                <Material:PackIconMaterialLight Kind="Bank" Style="{StaticResource InfoIconStyle}" />
-                                                <TextBlock Style="{StaticResource InfoTextBlockStyle}">
-                                                    <Hyperlink NavigateUri="https://www.paypal.me/snowphantom" RequestNavigate="Hyperlink_RequestNavigate">
-                                                        <TextBlock
-                                                            FontSize="16"
-                                                            Foreground="#FF303030"
-                                                            Text="Paypal.me/snowphantom" />
+                                                            Text="FB:snowphantom" />
                                                     </Hyperlink>
                                                 </TextBlock>
                                             </StackPanel>

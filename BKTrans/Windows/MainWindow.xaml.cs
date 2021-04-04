@@ -232,8 +232,6 @@ namespace BKTrans
             }
         }
 
-
-
         private static MainWindow _Instance;
 
         public static MainWindow Instance
@@ -249,7 +247,6 @@ namespace BKTrans
                 _Instance = value;
             }
         }
-
 
         public void RegisterHotKeys()
         {
@@ -284,6 +281,7 @@ namespace BKTrans
         public void ScanText_HotKey(object sender, NHotkey.HotkeyEventArgs e)
         {
             StartScanScreen();
+
         }
 
         private void OpenTrans_HotKey(object sender, HotkeyEventArgs e)

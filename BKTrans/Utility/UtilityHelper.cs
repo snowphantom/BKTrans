@@ -16,6 +16,7 @@ using System.Drawing;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Timers;
+using System.Windows.Forms;
 
 namespace BKTrans.Utility
 {
@@ -24,11 +25,11 @@ namespace BKTrans.Utility
         [System.Runtime.InteropServices.DllImport("gdi32.dll")]
         private static extern bool DeleteObject(IntPtr hObject);
 
+        public static Rectangle DesktopRectangle => SystemInformation.VirtualScreen;
+
         public static BitmapImage GetScreenCapture()
         {
-            Bitmap screenshotBtm = new Bitmap((int)SystemParameters.PrimaryScreenWidth
-                , (int)SystemParameters.PrimaryScreenHeight
-                , System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            Bitmap screenshotBtm = new Bitmap(DesktopRectangle.Width, DesktopRectangle.Height);
 
             using (Graphics graphics = Graphics.FromImage(screenshotBtm))
             {
@@ -49,7 +50,7 @@ namespace BKTrans.Utility
             }
             catch (Exception ea)
             {
-                MessageBox.Show(ea.Message);
+                System.Windows.MessageBox.Show(ea.Message);
             }
             finally
             {
@@ -185,11 +186,11 @@ namespace BKTrans.Utility
             
             if (isChecked == true)
             {
-                registryKey.SetValue(Application.Current.TryFindResource("ApplicationTitle").ToString(), System.Reflection.Assembly.GetExecutingAssembly().Location);
+                registryKey.SetValue(System.Windows.Application.Current.TryFindResource("ApplicationTitle").ToString(), System.Reflection.Assembly.GetExecutingAssembly().Location);
             }   
-            else if (registryKey.GetValue(Application.Current.TryFindResource("ApplicationTitle").ToString()) != null)
+            else if (registryKey.GetValue(System.Windows.Application.Current.TryFindResource("ApplicationTitle").ToString()) != null)
             {
-                registryKey.DeleteValue(Application.Current.TryFindResource("ApplicationTitle").ToString());
+                registryKey.DeleteValue(System.Windows.Application.Current.TryFindResource("ApplicationTitle").ToString());
             }
         }
     }

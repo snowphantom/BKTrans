@@ -54,7 +54,7 @@ namespace BKTrans
         public string LanguageOCR
         {
             get { return _LanguageOCR; }
-            set 
+            set
             {
                 _LanguageOCR = value;
                 OnPropertyChanged(nameof(LanguageOCR));
@@ -76,7 +76,13 @@ namespace BKTrans
 
         private bool Rescan;
 
-        public List<string> LanguageOCRList { get { return App.LANGUAGEDATA.Select(x => x.Name).ToList(); } }
+        public List<string> LanguageOCRList
+        {
+            get
+            {
+                return App.LANGUAGEDATA.Where(x => x.IsExist).Select(x => x.Name).ToList();
+            }
+        }
 
         public OCRScreenCapture()
         {
@@ -101,7 +107,7 @@ namespace BKTrans
             }
         }
 
-        public void TryOpenWindow(bool rescan = false,bool forceNewInstance = false)
+        public void TryOpenWindow(bool rescan = false, bool forceNewInstance = false)
         {
             try
             {
@@ -117,7 +123,7 @@ namespace BKTrans
             }
             catch (Exception e)
             {
-                throw e;
+                MessageBox.Show(e.Message);
             }
         }
 
@@ -136,32 +142,25 @@ namespace BKTrans
                 double width = Math.Abs(RectStartPoint.X - tempEndPoint.X);
                 double height = Math.Abs(RectStartPoint.Y - tempEndPoint.Y);
 
-
-
-                if (RectStartPoint.X > tempEndPoint.X && RectStartPoint.Y > tempEndPoint.Y)
+                if (RectStartPoint.X > tempEndPoint.X)
                 {
                     Canvas.SetLeft(selectionBox, tempEndPoint.X);
-                    Canvas.SetTop(selectionBox, tempEndPoint.Y);
+                    if (RectStartPoint.Y > tempEndPoint.Y)
+                        Canvas.SetTop(selectionBox, tempEndPoint.Y);
+                    else
+                        Canvas.SetTop(selectionBox, RectStartPoint.Y);
                 }
-                else if (RectStartPoint.X > tempEndPoint.X && RectStartPoint.Y < tempEndPoint.Y)
-                {
-                    Canvas.SetLeft(selectionBox, tempEndPoint.X);
-                    Canvas.SetTop(selectionBox, RectStartPoint.Y);
-                }
-                else if (RectStartPoint.X < tempEndPoint.X && RectStartPoint.Y > tempEndPoint.Y)
+                else if (RectStartPoint.X < tempEndPoint.X)
                 {
                     Canvas.SetLeft(selectionBox, RectStartPoint.X);
-                    Canvas.SetTop(selectionBox, tempEndPoint.Y);
-                }
-                else
-                {
-                    Canvas.SetLeft(selectionBox, RectStartPoint.X);
-                    Canvas.SetTop(selectionBox, RectStartPoint.Y);
+                    if (RectStartPoint.Y > tempEndPoint.Y)
+                        Canvas.SetTop(selectionBox, tempEndPoint.Y);
+                    else
+                        Canvas.SetTop(selectionBox, RectStartPoint.Y);
                 }
 
                 selectionBox.Width = width;
                 selectionBox.Height = height;
-
             }
         }
 
@@ -189,9 +188,7 @@ namespace BKTrans
             };
 
             this.Hide();
-
             ResetSelectionBox();
-
             ShowResult(Rescan);
         }
 
@@ -210,9 +207,8 @@ namespace BKTrans
                 {
                     ResultScreen.Instance.TryOpenWindow(capturedImageData, RegionCaptureData.LanguageOCR, true);
                 }
-
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 MessageBox.Show(e.Message);
             }
@@ -225,7 +221,7 @@ namespace BKTrans
             selectionBox.Width = 0;
             selectionBox.Height = 0;
         }
-        
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 

@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using System.Linq;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace BKTrans
 {
@@ -21,10 +22,15 @@ namespace BKTrans
     /// </summary>
     public partial class App : Application
     {
+        [DllImport("user32.dll")]
+        private static extern Boolean ShowWindow(IntPtr hWnd, Int32 nCmdShow);
+        private static readonly Int32 SW_SHOW = 10;
+
         public static readonly string SCANFILE_PATH = Path.Combine(Environment.ExpandEnvironmentVariables("%userprofile%"), ".bktrans\\appdata");
-        public static readonly string BASEDIRECTORY = AppDomain.CurrentDomain.BaseDirectory;
         public static readonly string TESSDATA_DICTPATH = Path.Combine(Environment.ExpandEnvironmentVariables("%userprofile%"), ".bktrans\\tessdata");
         public static readonly string SETTINGS_PATH = Path.Combine(Environment.ExpandEnvironmentVariables("%userprofile%"), ".bktrans\\appdata", "settings.ini");
+        public static readonly string BASEDIRECTORY = AppDomain.CurrentDomain.BaseDirectory;
+        public static readonly string AUTO_TRAINNED_PATH = Path.Combine(BASEDIRECTORY, "eng.traineddata");
 
         public static ObservableCollection<LanguageModel> LANGUAGEDATA = new ObservableCollection<LanguageModel>();
 
@@ -47,17 +53,7 @@ namespace BKTrans
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            const string appName = "BKTrans";
-            bool createdNew;
-
-            _mutex = new Mutex(true, appName, out createdNew);
-
-            if (!createdNew)
-            {
-                //app is already running! Exiting the application  
-                Application.Current.Shutdown();
-            }
-
+            CheckRunningInstance();
             CheckDataSource();
             ReadSettings();
             ReadData();
@@ -75,10 +71,10 @@ namespace BKTrans
             string fileName = "data.json";
             string fileNameEncrypted = "data.dat";
 
-            string fileDataPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileNameEncrypted);
+            string fileDataPath = Path.Combine(BASEDIRECTORY, fileNameEncrypted);
             if (!File.Exists(fileDataPath))
             {
-                string data = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName));
+                string data = File.ReadAllText(Path.Combine(BASEDIRECTORY, fileName));
                 byte[] encrypted = Helper.EncryptStringToByte(data, Helper.ENCRYPT_KEY);
                 File.WriteAllBytes(fileNameEncrypted, encrypted);
             }
@@ -106,10 +102,8 @@ namespace BKTrans
             }
         }
 
-
         private static void CheckDataSource()
         {
-
             if (!Directory.Exists(SCANFILE_PATH))
             {
                 Directory.CreateDirectory(SCANFILE_PATH);
@@ -119,9 +113,12 @@ namespace BKTrans
             {
                 Directory.CreateDirectory(TESSDATA_DICTPATH);
             }
+
+            if (File.Exists(AUTO_TRAINNED_PATH))
+            {
+                File.Copy(AUTO_TRAINNED_PATH, Path.Combine(TESSDATA_DICTPATH, "eng.traineddata"));
+            }
         }
-
-
 
         public static void CheckDownloaded()
         {
@@ -132,14 +129,17 @@ namespace BKTrans
                 if (listCode.Contains(x.Code))
                 {
                     x.IsExist = true;
-                    return x;
                 }
-                else
-                    return x;
+
+                return x;
             });
             LANGUAGEDATA = new ObservableCollection<LanguageModel>(result);
         }
 
-
+        public static void CheckRunningInstance()
+        {
+            if (SingleInstance.AlreadyRunning())
+                App.Current.Shutdown();
+        }
     }
 }
